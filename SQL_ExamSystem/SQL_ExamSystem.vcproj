@@ -89,7 +89,7 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)\Exec"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
 			CharacterSet="1"
@@ -171,6 +171,14 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\ODBCManagement.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\sha256.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\SQL_ExamSystem.cpp"
 				>
 			</File>
@@ -201,7 +209,15 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
+				RelativePath=".\ODBCManagement.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Resource.h"
+				>
+			</File>
+			<File
+				RelativePath=".\sha256.h"
 				>
 			</File>
 			<File

@@ -22,6 +22,7 @@
 
 # Visual Studio 2008 Junks
 Debug/
+Release/
 *.ncb
 *.suo
 *.ilk

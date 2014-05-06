@@ -1,4 +1,4 @@
-// Microsoft Visual C++ generated resource script.
+﻿// Microsoft Visual C++ generated resource script.
 //
 #include "resource.h"
 
@@ -18,7 +18,7 @@
 #undef APSTUDIO_READONLY_SYMBOLS
 
 /////////////////////////////////////////////////////////////////////////////
-// ����(�л����񹲺͹�) resources
+// 中文(中华人民共和国) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
 #ifdef _WIN32
@@ -53,29 +53,32 @@ END
 // Dialog
 //
 
-IDD_DLG_ABOUT DIALOGEX 0, 0, 171, 63
+IDD_DLG_ABOUT DIALOGEX 0, 0, 171, 155
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION
 CAPTION "About SQL_ExamSystem"
 FONT 9, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
-    ICON            128,IDC_STATIC,14,14,20,20
+    ICON            IDI_SMALL,IDC_STATIC,14,14,20,20
     LTEXT           "SQL_ExamSystem, v1.0",IDC_STATIC,42,14,114,8,SS_NOPREFIX
     LTEXT           "Copyright: MewCatcher, 2014",IDC_STATIC,42,26,114,8
-    DEFPUSHBUTTON   "OK",IDOK,114,42,50,14,WS_GROUP
+    DEFPUSHBUTTON   "OK",IDOK,114,135,50,14,WS_GROUP
+    LTEXT           "[ 相关技术参数 ]\r\n　　字符集　：Unicode (UTF-16 LE)\r\n　　开发语言：C++ with pure Win32 API\r\n\r\n[ 数据库系统参数 ]\r\n　　数据库　：SQL Server 2005 Express\r\n　　数据源　： MewCatcherSQLServer\r\n　　连接到　：.\\SQLEXPRESS\r\n　　登陆名　：sa\r\n",IDC_STATIC,11,47,148,78
 END
 
 IDD_DLG_LOGIN DIALOGEX 0, 0, 185, 97
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
-CAPTION "SQL����ϵͳ - ��½����"
+CAPTION "SQL考试系统 - 登陆界面"
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
     LTEXT           "UserName:",IDC_STATIC,25,26,36,8
     EDITTEXT        IDC_DLG_LOGIN_EDIT_USERNAME,64,23,96,14,ES_AUTOHSCROLL
     LTEXT           "Password:",IDC_STATIC,25,47,34,8
     EDITTEXT        IDC_DLG_LOGIN_EDIT_PASSWORD,64,44,96,14,ES_PASSWORD | ES_AUTOHSCROLL
-    PUSHBUTTON      "��½",IDC_DLG_LOGIN_BUTTON_LOGIN,32,70,50,14
-    PUSHBUTTON      "ע��",IDC_DLG_LOGIN_BUTTON_REGISTER,102,69,50,14
-    PUSHBUTTON      "About This Program",IDC_DLG_LOGIN_BUTTON_ABOUT,0,0,185,10,NOT WS_TABSTOP
+    PUSHBUTTON      "登陆",IDC_DLG_LOGIN_BUTTON_LOGIN,32,70,50,14,WS_DISABLED
+    PUSHBUTTON      "注册",IDC_DLG_LOGIN_BUTTON_REGISTER,102,69,50,14,WS_DISABLED
+    PUSHBUTTON      "About This Program",IDC_DLG_LOGIN_BUTTON_ABOUT,0,0,185,9,NOT WS_TABSTOP
+    CTEXT           "Not Connected",IDC_DLG_LOGIN_CONNECTSTATUES,0,88,150,9
+    PUSHBUTTON      "Retry",IDC_DLG_LOGIN_BUTTON_RETRY,150,88,35,9,NOT WS_TABSTOP
 END
 
 
@@ -92,7 +95,13 @@ BEGIN
         LEFTMARGIN, 7
         RIGHTMARGIN, 164
         TOPMARGIN, 7
-        BOTTOMMARGIN, 56
+        BOTTOMMARGIN, 148
+    END
+
+    IDD_DLG_LOGIN, DIALOG
+    BEGIN
+        VERTGUIDE, 16
+        HORZGUIDE, 16
     END
 END
 #endif    // APSTUDIO_INVOKED
@@ -140,7 +149,7 @@ BEGIN
     IDC_SQL_EXAMSYSTEM      "SQL_EXAMSYSTEM"
 END
 
-#endif    // ����(�л����񹲺͹�) resources
+#endif    // 中文(中华人民共和国) resources
 /////////////////////////////////////////////////////////////////////////////
 
 

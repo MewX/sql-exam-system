@@ -1,25 +1,42 @@
-// stdafx.h : ±ê×¼ÏµÍ³°üº¬ÎÄ¼şµÄ°üº¬ÎÄ¼ş£¬
-// »òÊÇ¾­³£Ê¹ÓÃµ«²»³£¸ü¸ÄµÄ
-// ÌØ¶¨ÓÚÏîÄ¿µÄ°üº¬ÎÄ¼ş
-//
+ï»¿/**
+ * Name: StdAfx.h
+ * Author: MewCatcher
+ * Date: 2014/05/05
+ * Description: This file define the most shared headers and variables.
+ **/
 
-#pragma once
+#ifndef _STDAFX_H_
+#define _STDAFX_H_
 
 #include "targetver.h"
 
-#define WIN32_LEAN_AND_MEAN             // ´Ó Windows Í·ÖĞÅÅ³ı¼«ÉÙÊ¹ÓÃµÄ×ÊÁÏ
+#define WIN32_LEAN_AND_MEAN             // ä» Windows å¤´ä¸­æ’é™¤æå°‘ä½¿ç”¨çš„èµ„æ–™
 
-// Windows Í·ÎÄ¼ş:
+// Windows å¤´æ–‡ä»¶:
 #include <windows.h>
 #include <commctrl.h>
 
 #pragma comment( lib, "comctl32.lib" )
 
-// C ÔËĞĞÊ±Í·ÎÄ¼ş
-#include <stdlib.h>
+// SQL Headers
+#include <sql.h>
+#include <sqlext.h>
+#include <Sqltypes.h>
+
+// C/C++ è¿è¡Œæ—¶å¤´æ–‡ä»¶
+#include <cstdlib>
 #include <malloc.h>
 #include <memory.h>
 #include <tchar.h>
+#include <string>
 
+using namespace std;
 
-// TODO: ÔÚ´Ë´¦ÒıÓÃ³ÌĞòĞèÒªµÄÆäËûÍ·ÎÄ¼ş
+// My Headers
+#include "ODBCManagement.h"
+#include "sha256.h"
+
+// My Globle Vars
+static ODBCManagement ODBCM;
+
+#endif

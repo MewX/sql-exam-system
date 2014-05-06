@@ -1,19 +1,24 @@
-// SQL_ExamSystem.cpp : ¶¨ÒåÓ¦ÓÃ³ÌĞòµÄÈë¿Úµã¡£
-//
+ï»¿/**
+ * Name: SQL_ExamSystem.cpp
+ * Author: MewCatcher
+ * Date: 2014/05/05
+ * Description: This file contains all the UI proc funtions.
+ **/
 
 #include "stdafx.h"
 #include "SQL_ExamSystem.h"
 
 #define MAX_LOADSTRING 100
 
-// È«¾Ö±äÁ¿:
-HINSTANCE hInst;								// µ±Ç°ÊµÀı
-TCHAR szTitle[MAX_LOADSTRING];					// ±êÌâÀ¸ÎÄ±¾
-TCHAR szWindowClass[MAX_LOADSTRING];			// Ö÷´°¿ÚÀàÃû
+// å…¨å±€å˜é‡:
+HINSTANCE hInst;								// å½“å‰å®ä¾‹
+/*TCHAR szTitle[MAX_LOADSTRING];					// æ ‡é¢˜æ æ–‡æœ¬
+TCHAR szWindowClass[MAX_LOADSTRING];			// ä¸»çª—å£ç±»å
 
-// ´Ë´úÂëÄ£¿éÖĞ°üº¬µÄº¯ÊıµÄÇ°ÏòÉùÃ÷:
-ATOM				MyRegisterClass(HINSTANCE hInstance);
-BOOL				InitInstance(HINSTANCE, int);
+// æ­¤ä»£ç æ¨¡å—ä¸­åŒ…å«çš„å‡½æ•°çš„å‰å‘å£°æ˜:
+ATOM				MyRegisterClass(HINSTANCE hInstance);*/
+
+// UI Procs
 INT_PTR CALLBACK	DlgAboutProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK	DlgLoginProc(HWND, UINT, WPARAM, LPARAM);
 
@@ -22,41 +27,40 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
                      LPTSTR    lpCmdLine,
                      int       nCmdShow)
 {
-	UNREFERENCED_PARAMETER(hPrevInstance);
+	/*UNREFERENCED_PARAMETER(hPrevInstance);
 	UNREFERENCED_PARAMETER(lpCmdLine);
 
- 	// TODO: ÔÚ´Ë·ÅÖÃ´úÂë¡£
-	MSG msg;
-	HACCEL hAccelTable;
-
-	// ³õÊ¼»¯È«¾Ö×Ö·û´®
+	// åˆå§‹åŒ–å…¨å±€å­—ç¬¦ä¸²
 	LoadString(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
 	LoadString(hInstance, IDC_SQL_EXAMSYSTEM, szWindowClass, MAX_LOADSTRING);
-	MyRegisterClass(hInstance);
+	MyRegisterClass(hInstance);*/
+	hInst = hInstance;
 
 	// Main Window
 	InitCommonControls( );
-	DialogBox( hInst, (LPCTSTR)IDD_DLG_LOGIN, NULL, (DLGPROC)DlgLoginProc );
+	DialogBox( hInstance, (LPCTSTR)IDD_DLG_LOGIN, NULL, (DLGPROC)DlgLoginProc );
 
+
+	ODBCM.ODBCDisconnect( );
 	return 0;
 }
 
 
 
 //
-//  º¯Êı: MyRegisterClass()
+//  å‡½æ•°: MyRegisterClass()
 //
-//  Ä¿µÄ: ×¢²á´°¿ÚÀà¡£
+//  ç›®çš„: æ³¨å†Œçª—å£ç±»ã€‚
 //
-//  ×¢ÊÍ:
+//  æ³¨é‡Š:
 //
-//    ½öµ±Ï£Íû
-//    ´Ë´úÂëÓëÌí¼Óµ½ Windows 95 ÖĞµÄ¡°RegisterClassEx¡±
-//    º¯ÊıÖ®Ç°µÄ Win32 ÏµÍ³¼æÈİÊ±£¬²ÅĞèÒª´Ëº¯Êı¼°ÆäÓÃ·¨¡£µ÷ÓÃ´Ëº¯ÊıÊ®·ÖÖØÒª£¬
-//    ÕâÑùÓ¦ÓÃ³ÌĞò¾Í¿ÉÒÔ»ñµÃ¹ØÁªµÄ
-//    ¡°¸ñÊ½ÕıÈ·µÄ¡±Ğ¡Í¼±ê¡£
+//    ä»…å½“å¸Œæœ›
+//    æ­¤ä»£ç ä¸æ·»åŠ åˆ° Windows 95 ä¸­çš„â€œRegisterClassExâ€
+//    å‡½æ•°ä¹‹å‰çš„ Win32 ç³»ç»Ÿå…¼å®¹æ—¶ï¼Œæ‰éœ€è¦æ­¤å‡½æ•°åŠå…¶ç”¨æ³•ã€‚è°ƒç”¨æ­¤å‡½æ•°ååˆ†é‡è¦ï¼Œ
+//    è¿™æ ·åº”ç”¨ç¨‹åºå°±å¯ä»¥è·å¾—å…³è”çš„
+//    â€œæ ¼å¼æ­£ç¡®çš„â€å°å›¾æ ‡ã€‚
 //
-ATOM MyRegisterClass(HINSTANCE hInstance)
+/*ATOM MyRegisterClass(HINSTANCE hInstance)
 {
 	WNDCLASSEX wcex;
 
@@ -75,53 +79,66 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
 	wcex.hIconSm		= LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
 
 	return RegisterClassEx(&wcex);
-}
-
-//
-//   º¯Êı: InitInstance(HINSTANCE, int)
-//
-//   Ä¿µÄ: ±£´æÊµÀı¾ä±ú²¢´´½¨Ö÷´°¿Ú
-//
-//   ×¢ÊÍ:
-//
-//        ÔÚ´Ëº¯ÊıÖĞ£¬ÎÒÃÇÔÚÈ«¾Ö±äÁ¿ÖĞ±£´æÊµÀı¾ä±ú²¢
-//        ´´½¨ºÍÏÔÊ¾Ö÷³ÌĞò´°¿Ú¡£
-//
-BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
-{
-   HWND hWnd;
-
-   hInst = hInstance; // ½«ÊµÀı¾ä±ú´æ´¢ÔÚÈ«¾Ö±äÁ¿ÖĞ
-
-   hWnd = CreateWindow(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
-      CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, NULL, NULL, hInstance, NULL);
-
-   if (!hWnd)
-   {
-      return FALSE;
-   }
-
-   ShowWindow(hWnd, nCmdShow);
-   UpdateWindow(hWnd);
-
-   return TRUE;
-}
-
-
+}*/
 
 /**
  *  All the dialog procs' main function
  **/
 INT_PTR CALLBACK DlgLoginProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
-	static wchar_t Password[ 256 ];
+	static int ConnectionInfo = 0; // 0 - Not Connected; -1 - Connection failed; 1 - Connection succeeded.
+	static char UserName[ 256 ] = { '\0' }, Password[ 256 ] = { '\0' }, temp[ 256 ] = { '\0' };
+	static HDC hdc;
+	static const RECT tempRECT = { 0, 0, 600, 600 };
 
 
 	UNREFERENCED_PARAMETER(lParam);
 	switch (message)
 	{
 	case WM_INITDIALOG:
+		// Here Connect SQL Database
+		
+
+RETRY_CONNECT:
+		if( !SQL_SUCCEEDED( ODBCM.ODBCConnect( _T( "MewCatcherSQLServer" ), _T("sa"), _T("sa") ) ) ) { // test connection info
+			ConnectionInfo = -1;
+			SetWindowText( GetDlgItem( hDlg, IDC_DLG_LOGIN_CONNECTSTATUES ), _T( "Failed to connect.  :(" ) );
+			EnableWindow( GetDlgItem( hDlg, IDC_DLG_LOGIN_BUTTON_LOGIN ), FALSE );
+			EnableWindow( GetDlgItem( hDlg, IDC_DLG_LOGIN_BUTTON_REGISTER ), FALSE );
+			EnableWindow( GetDlgItem( hDlg, IDC_DLG_LOGIN_BUTTON_RETRY ), TRUE );
+		}
+		else {
+			ConnectionInfo = 1;
+			SetWindowText( GetDlgItem( hDlg, IDC_DLG_LOGIN_CONNECTSTATUES ), _T( "Connected!  :)" ) );
+			EnableWindow( GetDlgItem( hDlg, IDC_DLG_LOGIN_BUTTON_LOGIN ), TRUE );
+			EnableWindow( GetDlgItem( hDlg, IDC_DLG_LOGIN_BUTTON_REGISTER ), TRUE );
+			EnableWindow( GetDlgItem( hDlg, IDC_DLG_LOGIN_BUTTON_RETRY ), FALSE );
+		}
+
 		return (INT_PTR)TRUE;
+
+	case WM_CTLCOLORSTATIC: // Set Text Color, and its background
+		// Need refresh !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		//SendMessage( hDlg, WM_PAINT, (WPARAM)GetDC( hDlg ), NULL );
+		//Invalidate( GetDlgItem( hDlg, IDC_DLG_LOGIN_CONNECTSTATUES ) );
+		//SetBkColor( GetDC( GetDlgItem( hDlg, IDC_DLG_LOGIN_CONNECTSTATUES ) ), GetPixel( GetDC(hDlg), 16, 16 ) );
+		//InvalidateRect( GetDlgItem( hDlg, IDC_DLG_LOGIN_CONNECTSTATUES ), &tempRECT, FALSE );
+		//UpdateWindow( GetDlgItem( hDlg, IDC_DLG_LOGIN_CONNECTSTATUES ) );
+		//RedrawWindow( hDlg, &tempRECT, NULL, RDW_ERASE );
+
+		//SendMessage( hDlg, WM_CTLCOLORDLG, (WPARAM)GetDC( hDlg ), NULL );
+		//RedrawWindow( hDlg, &tempRECT, NULL, RDW_ERASE | RDW_NOCHILDREN );
+
+		hdc = (HDC)wParam;
+		if( (HWND)lParam == GetDlgItem( hDlg, IDC_DLG_LOGIN_CONNECTSTATUES ) ) { // Set Specific Color
+			if( ConnectionInfo == 1 ) SetTextColor( (HDC)wParam, RGB( 21, 125, 240 ) );
+			else if( ConnectionInfo == -1 ) SetTextColor( (HDC)wParam, RGB( 255, 0, 0 ) );
+		}
+		SetBkMode( (HDC)wParam, TRANSPARENT ); // Set TRANSPARENT
+
+		//return (LRESULT)GetStockObject( NULL_BRUSH );
+		return (LRESULT)CreateSolidBrush(GetPixel( GetDC(hDlg), 16, 16 ) );
+
 
 	case WM_COMMAND:
 		switch( LOWORD(wParam) ) {
@@ -134,13 +151,22 @@ INT_PTR CALLBACK DlgLoginProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lPa
 			return (INT_PTR)TRUE;
 
 		case IDC_DLG_LOGIN_BUTTON_LOGIN:
-			GetWindowText( GetDlgItem( hDlg, IDC_DLG_LOGIN_EDIT_PASSWORD ), Password, 255 ); // test
-			SetWindowText( GetDlgItem( hDlg, IDC_DLG_LOGIN_EDIT_USERNAME ), Password );
+			GetWindowTextA( GetDlgItem( hDlg, IDC_DLG_LOGIN_EDIT_PASSWORD ), Password, 255 ); // test
+			//SetWindowTextA( GetDlgItem( hDlg, IDC_DLG_LOGIN_EDIT_USERNAME ), Password );
+
+			sha256_32byte( (unsigned char *)Password, (unsigned char *)temp );
+			byte_array_to_str( (unsigned char *)temp, UserName, 32 );
+			SetWindowTextA( GetDlgItem( hDlg, IDC_DLG_LOGIN_EDIT_USERNAME ), UserName );
+
 			return (INT_PTR)TRUE;
 
-		}
+		case IDC_DLG_LOGIN_BUTTON_RETRY: // Attemp to reconnct to SQL DB
+			goto RETRY_CONNECT; // Using this way is efficient
+			return (INT_PTR)TRUE;
+
+		} // switch ID
 		return (INT_PTR)TRUE;
-	}
+	} // switch message
 	return (INT_PTR)FALSE;
 }
 

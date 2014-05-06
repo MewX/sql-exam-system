@@ -1,8 +1,5 @@
-// stdafx.cpp : Ö»°üÀ¨±ê×¼°üº¬ÎÄ¼þµÄÔ´ÎÄ¼þ
-// SQL_ExamSystem.pch ½«×÷ÎªÔ¤±àÒëÍ·
-// stdafx.obj ½«°üº¬Ô¤±àÒëÀàÐÍÐÅÏ¢
+ï»¿// stdafx.cpp : åªåŒ…æ‹¬æ ‡å‡†åŒ…å«æ–‡ä»¶çš„æºæ–‡ä»¶
+// SQL_ExamSystem.pch å°†ä½œä¸ºé¢„ç¼–è¯‘å¤´
+// stdafx.obj å°†åŒ…å«é¢„ç¼–è¯‘ç±»åž‹ä¿¡æ¯
 
 #include "stdafx.h"
-
-// TODO: ÔÚ STDAFX.H ÖÐ
-// ÒýÓÃÈÎºÎËùÐèµÄ¸½¼ÓÍ·ÎÄ¼þ£¬¶ø²»ÊÇÔÚ´ËÎÄ¼þÖÐÒýÓÃ

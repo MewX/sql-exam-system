@@ -1,4 +1,4 @@
-//{{NO_DEPENDENCIES}}
+﻿//{{NO_DEPENDENCIES}}
 // Microsoft Visual C++ generated include file.
 // Used by SQL_ExamSystem.rc
 //
@@ -18,6 +18,9 @@
 #define IDC_DLG_LOGIN_BUTTON_LOGIN      1002
 #define IDC_DLG_LOGIN_BUTTON_REGISTER   1003
 #define IDC_DLG_LOGIN_BUTTON_ABOUT      1004
+#define IDC_DLG_LOGIN_CONNECTSTATUES    1005
+#define IDC_BUTTON1                     1006
+#define IDC_DLG_LOGIN_BUTTON_RETRY      1006
 #define IDC_STATIC                      -1
 
 // Next default values for new objects
@@ -27,7 +30,7 @@
 #define _APS_NO_MFC                     1
 #define _APS_NEXT_RESOURCE_VALUE        130
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1005
+#define _APS_NEXT_CONTROL_VALUE         1007
 #define _APS_NEXT_SYMED_VALUE           110
 #endif
 #endif
