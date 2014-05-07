@@ -16,7 +16,7 @@ public:
 	ODBCManagement( );
 	~ODBCManagement( );
 
-	SQLRETURN ODBCConnect( TCHAR* szDSN, TCHAR* szUID, TCHAR* szAuthStr );
+	bool ODBCConnect( TCHAR* szDSN, TCHAR* szUID, TCHAR* szAuthStr );
 	void ODBCDisconnect( );
 
 private:

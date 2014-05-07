@@ -23,9 +23,18 @@
 # Visual Studio 2008 Junks
 Debug/
 Release/
+ipch/
+bin/
+obj/
+
 *.ncb
 *.suo
 *.ilk
 *.pdb
 *.aps
 *.user
+*.filters
+*.dbmdl
+*.suo
+*.slf
+*.sdf

@@ -1,4 +1,4 @@
-ï»¿// Microsoft Visual C++ generated resource script.
+// Microsoft Visual C++ generated resource script.
 //
 #include "resource.h"
 
@@ -18,13 +18,11 @@
 #undef APSTUDIO_READONLY_SYMBOLS
 
 /////////////////////////////////////////////////////////////////////////////
-// ä¸­æ–‡(ä¸­åŽäººæ°‘å…±å’Œå›½) resources
+// ÖÐÎÄ(¼òÌå£¬ÖÐ¹ú) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
-#ifdef _WIN32
 LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
 #pragma code_page(936)
-#endif //_WIN32
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -41,7 +39,7 @@ IDI_SMALL               ICON                    "small.ico"
 // Accelerator
 //
 
-IDC_SQL_EXAMSYSTEM ACCELERATORS 
+IDC_SQL_EXAMSYSTEM ACCELERATORS
 BEGIN
     "?",            IDM_ABOUT,              ASCII,  ALT
     "/",            IDM_ABOUT,              ASCII,  ALT
@@ -62,23 +60,40 @@ BEGIN
     LTEXT           "SQL_ExamSystem, v1.0",IDC_STATIC,42,14,114,8,SS_NOPREFIX
     LTEXT           "Copyright: MewCatcher, 2014",IDC_STATIC,42,26,114,8
     DEFPUSHBUTTON   "OK",IDOK,114,135,50,14,WS_GROUP
-    LTEXT           "[ ç›¸å…³æŠ€æœ¯å‚æ•° ]\r\nã€€ã€€å­—ç¬¦é›†ã€€ï¼šUnicode (UTF-16 LE)\r\nã€€ã€€å¼€å‘è¯­è¨€ï¼šC++ with pure Win32 API\r\n\r\n[ æ•°æ®åº“ç³»ç»Ÿå‚æ•° ]\r\nã€€ã€€æ•°æ®åº“ã€€ï¼šSQL Server 2005 Express\r\nã€€ã€€æ•°æ®æºã€€ï¼š MewCatcherSQLServer\r\nã€€ã€€è¿žæŽ¥åˆ°ã€€ï¼š.\\SQLEXPRESS\r\nã€€ã€€ç™»é™†åã€€ï¼šsa\r\n",IDC_STATIC,11,47,148,78
+    LTEXT           "[ Ïà¹Ø¼¼Êõ²ÎÊý ]\r\n¡¡¡¡×Ö·û¼¯¡¡£ºUnicode (UTF-16 LE)\r\n¡¡¡¡¿ª·¢ÓïÑÔ£ºC++ with pure Win32 API\r\n\r\n[ Êý¾Ý¿âÏµÍ³²ÎÊý ]\r\n¡¡¡¡Êý¾Ý¿â¡¡£ºSQL Server 2005 Express\r\n¡¡¡¡¡¡¡¡¡¡¡¡¡¡MySQL ODBC 5.2 Unicode\r\n¡¡¡¡Êý¾ÝÔ´¡¡£º MewCatcherSQLServer\r\n¡¡¡¡µÇÂ½Ãû¡¡£º(NULL, set on ODBC)\r\n",IDC_STATIC,11,47,148,78
 END
 
 IDD_DLG_LOGIN DIALOGEX 0, 0, 185, 97
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
-CAPTION "SQLè€ƒè¯•ç³»ç»Ÿ - ç™»é™†ç•Œé¢"
+CAPTION "SQL¿¼ÊÔÏµÍ³ - µÇÂ½½çÃæ"
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
     LTEXT           "UserName:",IDC_STATIC,25,26,36,8
     EDITTEXT        IDC_DLG_LOGIN_EDIT_USERNAME,64,23,96,14,ES_AUTOHSCROLL
     LTEXT           "Password:",IDC_STATIC,25,47,34,8
     EDITTEXT        IDC_DLG_LOGIN_EDIT_PASSWORD,64,44,96,14,ES_PASSWORD | ES_AUTOHSCROLL
-    PUSHBUTTON      "ç™»é™†",IDC_DLG_LOGIN_BUTTON_LOGIN,32,70,50,14,WS_DISABLED
-    PUSHBUTTON      "æ³¨å†Œ",IDC_DLG_LOGIN_BUTTON_REGISTER,102,69,50,14,WS_DISABLED
+    PUSHBUTTON      "µÇÂ½",IDC_DLG_LOGIN_BUTTON_LOGIN,32,70,50,14,WS_DISABLED
+    PUSHBUTTON      "×¢²á",IDC_DLG_LOGIN_BUTTON_REGISTER,102,69,50,14,WS_DISABLED
     PUSHBUTTON      "About This Program",IDC_DLG_LOGIN_BUTTON_ABOUT,0,0,185,9,NOT WS_TABSTOP
     CTEXT           "Not Connected",IDC_DLG_LOGIN_CONNECTSTATUES,0,88,150,9
     PUSHBUTTON      "Retry",IDC_DLG_LOGIN_BUTTON_RETRY,150,88,35,9,NOT WS_TABSTOP
+END
+
+IDD_DLG_REG DIALOGEX 0, 0, 303, 183
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "SQL¿¼ÊÔÏµÍ³ - ×¢²á½çÃæ"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "×¢£º\r\n¡¡¡¡´Ë´¦Ö»ÄÜ×¢²áÑ§ÉúÓÃ»§£¬Èç¹ûÐèÒª×¢²á¹ÜÀíÔ±ÓÃ»§£¬ÇëµÇÂ½³¬¼¶ÓÃ»§µ½¹ÜÀíºóÌ¨½øÐÐ²Ù×÷¡£\r\n¡¡¡¡³¬¼¶ÓÃ»§Ä¬ÈÏÓÃ»§ÃûÎªsu£¬ÃÜÂëÎª1¡£",IDC_STATIC,12,8,282,34
+    LTEXT           "UserName:",IDC_STATIC,12,60,36,8
+    EDITTEXT        IDC_DLG_REG_EDIT_USERNAME,54,57,234,14,ES_AUTOHSCROLL
+    LTEXT           "£¨4-20³¤¶È£¬²»Çø·Ö´óÐ¡Ð´£¬ÇÒÖ»ÄÜÎªÓ¢ÎÄºÍÊý×Ö£¬Ê××ÖÄ¸²»ÄÜÎªÊý×Ö£©",IDC_STATIC,32,72,256,8,WS_DISABLED
+    LTEXT           "Password:",IDC_STATIC,12,101,34,8
+    EDITTEXT        IDC_DLG_REG_EDIT_PASSWORD1,54,98,234,14,ES_PASSWORD | ES_AUTOHSCROLL
+    LTEXT           "£¨0-20³¤¶È£¬Çø·Ö´óÐ¡Ð´£¬ÇÒÖ»ÄÜÎªÓ¢ÎÄºÍÊý×Ö£©",IDC_STATIC,112,113,176,8,WS_DISABLED
+    EDITTEXT        IDC_DLG_REG_EDIT_PASSWORD2,54,123,234,14,ES_PASSWORD | ES_AUTOHSCROLL
+    LTEXT           "£¨ÇëÈ·ÈÏÊäÈëÃÜÂë£©",IDC_STATIC,215,138,73,8,WS_DISABLED
+    PUSHBUTTON      "×¢²á",IDC_DLG_REG_BTN_REG,86,156,132,14
 END
 
 
@@ -88,7 +103,7 @@ END
 //
 
 #ifdef APSTUDIO_INVOKED
-GUIDELINES DESIGNINFO 
+GUIDELINES DESIGNINFO
 BEGIN
     IDD_DLG_ABOUT, DIALOG
     BEGIN
@@ -102,6 +117,14 @@ BEGIN
     BEGIN
         VERTGUIDE, 16
         HORZGUIDE, 16
+    END
+
+    IDD_DLG_REG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 296
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 176
     END
 END
 #endif    // APSTUDIO_INVOKED
@@ -143,13 +166,13 @@ END
 // String Table
 //
 
-STRINGTABLE 
+STRINGTABLE
 BEGIN
     IDS_APP_TITLE           "SQL_ExamSystem"
     IDC_SQL_EXAMSYSTEM      "SQL_EXAMSYSTEM"
 END
 
-#endif    // ä¸­æ–‡(ä¸­åŽäººæ°‘å…±å’Œå›½) resources
+#endif    // ÖÐÎÄ(¼òÌå£¬ÖÐ¹ú) resources
 /////////////////////////////////////////////////////////////////////////////
 
 

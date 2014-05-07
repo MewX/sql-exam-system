@@ -100,7 +100,7 @@ INT_PTR CALLBACK DlgLoginProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lPa
 		
 
 RETRY_CONNECT:
-		if( !SQL_SUCCEEDED( ODBCM.ODBCConnect( _T( "MewCatcherSQLServer" ), _T("sa"), _T("sa") ) ) ) { // test connection info
+		if( !ODBCM.ODBCConnect( _T( "MewCatcherSQLServer" ), _T(""), _T("") ) ) { // test connection info
 			ConnectionInfo = -1;
 			SetWindowText( GetDlgItem( hDlg, IDC_DLG_LOGIN_CONNECTSTATUES ), _T( "Failed to connect.  :(" ) );
 			EnableWindow( GetDlgItem( hDlg, IDC_DLG_LOGIN_BUTTON_LOGIN ), FALSE );

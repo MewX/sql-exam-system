@@ -19,7 +19,7 @@ ODBCManagement::~ODBCManagement( )
 	return;
 }
 
-SQLRETURN ODBCManagement::ODBCConnect( TCHAR* szDSN, TCHAR* szUID, TCHAR* szAuthStr )
+bool ODBCManagement::ODBCConnect( TCHAR* szDSN, TCHAR* szUID, TCHAR* szAuthStr )
 {
 	if( status ) ODBCDisconnect( );
 
