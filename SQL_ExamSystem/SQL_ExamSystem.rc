@@ -59,8 +59,9 @@ BEGIN
     ICON            IDI_SMALL,IDC_STATIC,14,14,20,20
     LTEXT           "SQL_ExamSystem, v1.0",IDC_STATIC,42,14,114,8,SS_NOPREFIX
     LTEXT           "Copyright: MewCatcher, 2014",IDC_STATIC,42,26,114,8
-    DEFPUSHBUTTON   "OK",IDOK,114,135,50,14,WS_GROUP
+    DEFPUSHBUTTON   "OK",IDOK,114,125,50,14,WS_GROUP
     LTEXT           "[ 相关技术参数 ]\r\n　　字符集　：Unicode (UTF-16 LE)\r\n　　开发语言：C++ with pure Win32 API\r\n\r\n[ 数据库系统参数 ]\r\n　　数据库　：SQL Server 2005 Express\r\n　　　　　　　MySQL ODBC 5.2 Unicode\r\n　　数据源　： MewCatcherSQLServer\r\n　　登陆名　：(NULL, set on ODBC)\r\n",IDC_STATIC,11,47,148,78
+    EDITTEXT        IDC_DLG_ABOUT_EDIT_OS,0,140,168,14,ES_CENTER | ES_AUTOHSCROLL | ES_READONLY | NOT WS_TABSTOP
 END
 
 IDD_DLG_LOGIN DIALOGEX 0, 0, 185, 97
@@ -96,6 +97,29 @@ BEGIN
     PUSHBUTTON      "注册",IDC_DLG_REG_BTN_REG,86,156,132,14
 END
 
+IDD_DLG_ADMSHELL DIALOGEX 0, 0, 477, 303
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "SQL考试系统 - 管理员后台"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    PUSHBUTTON      "EXIT",IDC_DLG_ADMSHELL_BTN_EXIT,438,6,32,14,NOT WS_TABSTOP
+    LTEXT           "-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------",IDC_STATIC,7,21,462,8,WS_DISABLED
+    PUSHBUTTON      "修改信息",IDC_DLG_ADMSHELL_BTN_EDITINFO,6,6,50,14
+    PUSHBUTTON      "管理管理员",IDC_DLG_ADMSHELL_BTN_EDITADM,66,6,50,14
+    PUSHBUTTON      "管理学生",IDC_DLG_ADMSHELL_BTN_EDITSTU,126,6,50,14
+    PUSHBUTTON      "管理试题",IDC_DLG_ADMSHELL_BTN_EDITQUEST,186,6,50,14
+    PUSHBUTTON      "管理试卷",IDC_DLG_ADMSHELL_BTN_EDITPAPER,246,6,50,14
+    PUSHBUTTON      "管理考试",IDC_DLG_ADMSHELL_BTN_EDITEXAM,306,6,50,14
+    PUSHBUTTON      "管理成绩",IDC_DLG_ADMSHELL_BTN_EDITGRADE,366,6,50,14
+    CONTROL         "",IDC_DLG_ADMSHELL_LIST,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | LVS_ALIGNLEFT,7,30,462,252
+    LTEXT           "-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------",IDC_STATIC,6,283,462,8,WS_DISABLED
+    LTEXT           "您已登录为：su",IDC_DLG_ADMSHELL_STA_UNM,6,292,56,8
+    LTEXT           "当前显示表格：管理员表格",IDC_STATIC,169,292,97,8
+    PUSHBUTTON      "添加",IDC_DLG_ADMSHELL_BTN_ADD,370,288,30,14,NOT WS_TABSTOP
+    PUSHBUTTON      "删除",IDC_DLG_ADMSHELL_BTN_DEL,404,288,30,14,NOT WS_TABSTOP
+    PUSHBUTTON      "修改",IDC_DLG_ADMSHELL_BTN_EDIT,438,288,30,14,NOT WS_TABSTOP
+END
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -125,6 +149,14 @@ BEGIN
         RIGHTMARGIN, 296
         TOPMARGIN, 7
         BOTTOMMARGIN, 176
+    END
+
+    IDD_DLG_ADMSHELL, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 470
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 296
     END
 END
 #endif    // APSTUDIO_INVOKED

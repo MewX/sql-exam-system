@@ -29,6 +29,7 @@
 #include <memory.h>
 #include <tchar.h>
 #include <string>
+#include <sstream>
 
 using namespace std;
 

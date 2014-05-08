@@ -27,7 +27,8 @@ create table Admin (
   canManageAdmin bit default 0,      -- 0/cannot; 1/can
   canManageStudent bit default 1,
   canSetProblem bit default 1,
-  canSetPaper bit default 0,
+  canSetPaper bit default 1,
+  canSetExam bit default 1,
   canDeleteGrade bit default 1,
   canEditGrade bit default 0        -- Edit answers and grades calculated.
 );
@@ -35,7 +36,7 @@ create table Admin (
 create table Student (
   StuId int primary key,             -- max( ? ) + 1
   StuName varchar( 20 ) not null,
-  StuPassword char( 32 ) not null,
+  StuPassword char( 64 ) not null,
   RegTime datetime default getdate( ),
 
   ExamTime int default 0             -- count( ? ) where ?=StuId
@@ -139,8 +140,8 @@ create table Grade (
 -- Init Tables with values
 -- ----------------------------
 insert into Admin( AdminId, AdminName, AdminPassword, AdminType,
-                   canManageAdmin, canManageStudent, canSetProblem, canSetPaper, canDeleteGrade, canEditGrade )
-values ( 1, 'su', 'be9d9be4e8df0f4046100680ff3b209c15715e6c9f1057ca945c08cfc77b2a50', 0, 1, 1, 1, 1, 1, 1 );
+                   canManageAdmin, canManageStudent, canSetProblem, canSetPaper, canSetExam, canDeleteGrade, canEditGrade )
+values ( 1, 'su', 'be9d9be4e8df0f4046100680ff3b209c15715e6c9f1057ca945c08cfc77b2a50', 0, 1, 1, 1, 1, 1, 1, 1 );
 
 insert into Specification( SpecId, SpecName ) values ( 1, 'Computer Science' );
 

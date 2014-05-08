@@ -19,7 +19,7 @@ ODBCManagement::~ODBCManagement( )
 	return;
 }
 
-bool ODBCManagement::ODBCConnect( TCHAR* szDSN, TCHAR* szUID, TCHAR* szAuthStr )
+bool ODBCManagement::ODBCConnect( TCHAR *szDSN, TCHAR *szUID, TCHAR *szAuthStr )
 {
 	if( status ) ODBCDisconnect( );
 
@@ -35,11 +35,63 @@ bool ODBCManagement::ODBCConnect( TCHAR* szDSN, TCHAR* szUID, TCHAR* szAuthStr )
 void ODBCManagement::ODBCDisconnect( )
 {
 	if( status ) {
-		SQLFreeHandle( SQL_HANDLE_STMT, hstmt );
+		SQLFreeHandle( SQL_HANDLE_STMT, hstmt ); // free statement handle
 		SQLDisconnect( hdbc );
 		SQLFreeHandle( SQL_HANDLE_DBC, hdbc );
 		SQLFreeHandle( SQL_HANDLE_ENV, henv );
 		status = false;
 	}
 	return;
+}
+
+bool ODBCManagement::ODBCExecDirect( string Query )
+{
+	SQLHSTMT h;
+	SQLAllocHandle( SQL_HANDLE_STMT, hdbc, &h );
+	ret = SQLExecDirectA( h, (SQLCHAR *)Query.c_str( ), SQL_NTS );
+	SQLFreeHandle( SQL_HANDLE_STMT, h );
+	MessageBoxA( NULL, Query.c_str( ), NULL, NULL );
+
+	return ret == SQL_SUCCESS || ret == SQL_SUCCESS_WITH_INFO;
+}
+
+bool ODBCManagement::ODBCExecDirect( wstring Query )
+{
+	SQLHSTMT h;
+	SQLAllocHandle( SQL_HANDLE_STMT, hdbc, &h );
+	ret = SQLExecDirectW( h, (SQLWCHAR *)Query.c_str( ), SQL_NTS );
+	SQLFreeHandle( SQL_HANDLE_STMT, h );
+	MessageBoxW( NULL, Query.c_str( ), NULL, NULL );
+
+	return ret == SQL_SUCCESS || ret == SQL_SUCCESS_WITH_INFO;
+}
+
+SQLHDBC ODBCManagement::getHdbc( ) const
+{
+	return hdbc;
+}
+
+long ODBCManagement::getOneValue( string str )
+{
+	wstring wstr( str.begin( ), str.end( ) );
+	// MessageBox( NULL, wstr.c_str( ), NULL, NULL );
+	return getOneValue( wstr );
+}
+
+long ODBCManagement::getOneValue( wstring wstr )
+{
+	SQLHSTMT h;
+	long test = -1;
+
+	SQLAllocHandle( SQL_HANDLE_STMT, hdbc, &h );
+	SQLExecDirectW( h, (SQLWCHAR *)wstr.c_str( ), SQL_NTS );
+	if( SQL_SUCCEEDED( SQLFetch( h ) ) ) {
+		if( !SQL_SUCCEEDED( SQLGetData( h, 1, SQL_C_LONG, &test, 0, NULL ) ) )
+			MessageBox( NULL, _T("SQLGetData Error 0x0000!"), NULL ,NULL );
+	}
+	else {
+		MessageBox( NULL, _T("SQLFetch Error 0x0000!"), NULL ,NULL );
+	}
+	SQLFreeHandle( SQL_HANDLE_STMT, h );
+	return test;
 }

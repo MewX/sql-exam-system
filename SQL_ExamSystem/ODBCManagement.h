@@ -16,14 +16,20 @@ public:
 	ODBCManagement( );
 	~ODBCManagement( );
 
-	bool ODBCConnect( TCHAR* szDSN, TCHAR* szUID, TCHAR* szAuthStr );
+	bool ODBCConnect( TCHAR *szDSN, TCHAR *szUID, TCHAR *szAuthStr );
+	bool ODBCExecDirect( string Query );
+	bool ODBCExecDirect( wstring Query );
 	void ODBCDisconnect( );
+
+	SQLHSTMT hstmt; // Operation handle
+	SQLHDBC getHdbc( ) const;
+	long getOneValue( string str );  // Exec and get table(1,1) value
+	long getOneValue( wstring wstr );
 
 private:
 	bool status;    // true - connected
 	SQLHENV  henv;  // Environment handle
 	SQLHDBC  hdbc;  // Connector handle
-	SQLHSTMT hstmt; // Operation handle
 	SQLRETURN ret;  // return value
 
 };
