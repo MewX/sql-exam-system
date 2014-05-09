@@ -1,0 +1,221 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#ifndef APSTUDIO_INVOKED
+#include "targetver.h"
+#endif
+#define APSTUDIO_HIDDEN_SYMBOLS
+#include "windows.h"
+#undef APSTUDIO_HIDDEN_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// 中文(简体，中国) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
+#pragma code_page(936)
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDI_SQL_EXAMSYSTEM      ICON                    "SQL_ExamSystem.ico"
+IDI_SMALL               ICON                    "small.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+IDC_SQL_EXAMSYSTEM ACCELERATORS
+BEGIN
+    "?",            IDM_ABOUT,              ASCII,  ALT
+    "/",            IDM_ABOUT,              ASCII,  ALT
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_DLG_ABOUT DIALOGEX 0, 0, 171, 155
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION
+CAPTION "About SQL_ExamSystem"
+FONT 9, "MS Shell Dlg", 0, 0, 0x1
+BEGIN
+    ICON            IDI_SMALL,IDC_STATIC,14,14,20,20
+    LTEXT           "SQL_ExamSystem, v1.0",IDC_STATIC,42,14,114,8,SS_NOPREFIX
+    LTEXT           "Copyright: MewCatcher, 2014",IDC_STATIC,42,26,114,8
+    DEFPUSHBUTTON   "OK",IDOK,114,125,50,14,WS_GROUP
+    LTEXT           "[ 相关技术参数 ]\r\n　　字符集　：Unicode (UTF-16 LE)\r\n　　开发语言：C++ with pure Win32 API\r\n\r\n[ 数据库系统参数 ]\r\n　　数据库　：SQL Server 2005 Express\r\n　　　　　　　MySQL ODBC 5.2 Unicode\r\n　　数据源　： MewCatcherSQLServer\r\n　　登陆名　：(NULL, set on ODBC)\r\n",IDC_STATIC,11,47,148,78
+    EDITTEXT        IDC_DLG_ABOUT_EDIT_OS,0,140,168,14,ES_CENTER | ES_AUTOHSCROLL | ES_READONLY | NOT WS_TABSTOP
+END
+
+IDD_DLG_LOGIN DIALOGEX 0, 0, 185, 97
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "SQL考试系统 - 登陆界面"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "UserName:",IDC_STATIC,25,26,36,8
+    EDITTEXT        IDC_DLG_LOGIN_EDIT_USERNAME,64,23,96,14,ES_AUTOHSCROLL
+    LTEXT           "Password:",IDC_STATIC,25,47,34,8
+    EDITTEXT        IDC_DLG_LOGIN_EDIT_PASSWORD,64,44,96,14,ES_PASSWORD | ES_AUTOHSCROLL
+    PUSHBUTTON      "登陆",IDC_DLG_LOGIN_BUTTON_LOGIN,32,70,50,14,WS_DISABLED
+    PUSHBUTTON      "注册",IDC_DLG_LOGIN_BUTTON_REGISTER,102,69,50,14,WS_DISABLED
+    PUSHBUTTON      "About This Program",IDC_DLG_LOGIN_BUTTON_ABOUT,0,0,185,9,NOT WS_TABSTOP
+    CTEXT           "Not Connected",IDC_DLG_LOGIN_CONNECTSTATUES,0,88,150,9
+    PUSHBUTTON      "Retry",IDC_DLG_LOGIN_BUTTON_RETRY,150,88,35,9,NOT WS_TABSTOP
+END
+
+IDD_DLG_REG DIALOGEX 0, 0, 303, 183
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "SQL考试系统 - 注册界面"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "注：\r\n　　此处只能注册学生用户，如果需要注册管理员用户，请登陆超级用户到管理后台进行操作。\r\n　　超级用户默认用户名为su，密码为1。",IDC_STATIC,12,8,282,34
+    LTEXT           "UserName:",IDC_STATIC,12,60,36,8
+    EDITTEXT        IDC_DLG_REG_EDIT_USERNAME,54,57,234,14,ES_AUTOHSCROLL
+    LTEXT           "（4-20长度，不区分大小写，且只能为英文和数字，首字母不能为数字）",IDC_STATIC,32,72,256,8,WS_DISABLED
+    LTEXT           "Password:",IDC_STATIC,12,101,34,8
+    EDITTEXT        IDC_DLG_REG_EDIT_PASSWORD1,54,98,234,14,ES_PASSWORD | ES_AUTOHSCROLL
+    LTEXT           "（0-20长度，区分大小写，且只能为英文和数字）",IDC_STATIC,112,113,176,8,WS_DISABLED
+    EDITTEXT        IDC_DLG_REG_EDIT_PASSWORD2,54,123,234,14,ES_PASSWORD | ES_AUTOHSCROLL
+    LTEXT           "（请确认输入密码）",IDC_STATIC,215,138,73,8,WS_DISABLED
+    PUSHBUTTON      "注册",IDC_DLG_REG_BTN_REG,86,156,132,14
+END
+
+IDD_DLG_ADMSHELL DIALOGEX 0, 0, 477, 303
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "SQL考试系统 - 管理员后台"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    PUSHBUTTON      "EXIT",IDC_DLG_ADMSHELL_BTN_EXIT,438,6,32,14,NOT WS_TABSTOP
+    LTEXT           "-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------",IDC_STATIC,7,21,462,8,WS_DISABLED
+    PUSHBUTTON      "修改密码",IDC_DLG_ADMSHELL_BTN_EDITINFO,6,6,50,14
+    PUSHBUTTON      "管理管理员",IDC_DLG_ADMSHELL_BTN_EDITADM,66,6,50,14
+    PUSHBUTTON      "管理学生",IDC_DLG_ADMSHELL_BTN_EDITSTU,126,6,50,14
+    PUSHBUTTON      "管理试题",IDC_DLG_ADMSHELL_BTN_EDITQUEST,186,6,50,14
+    PUSHBUTTON      "管理试卷",IDC_DLG_ADMSHELL_BTN_EDITPAPER,246,6,50,14
+    PUSHBUTTON      "管理考试",IDC_DLG_ADMSHELL_BTN_EDITEXAM,306,6,50,14
+    PUSHBUTTON      "管理成绩",IDC_DLG_ADMSHELL_BTN_EDITGRADE,366,6,50,14
+    CONTROL         "",IDC_DLG_ADMSHELL_LIST,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS | LVS_ALIGNLEFT | WS_BORDER,7,30,462,252
+    LTEXT           "-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------",IDC_STATIC,6,283,462,8,WS_DISABLED
+    LTEXT           "您已登录为：su",IDC_DLG_ADMSHELL_STA_UNM,6,292,150,8
+    PUSHBUTTON      "添加",IDC_DLG_ADMSHELL_BTN_ADD,370,288,30,14,NOT WS_TABSTOP
+    PUSHBUTTON      "删除",IDC_DLG_ADMSHELL_BTN_DEL,404,288,30,14,NOT WS_TABSTOP
+    PUSHBUTTON      "修改",IDC_DLG_ADMSHELL_BTN_EDIT,438,288,30,14,NOT WS_TABSTOP
+    LTEXT           "当前显示表格：管理员表格",IDC_DLG_ADMSHELL_STA_TAB,169,292,185,8
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    IDD_DLG_ABOUT, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 164
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 148
+    END
+
+    IDD_DLG_LOGIN, DIALOG
+    BEGIN
+        VERTGUIDE, 16
+        HORZGUIDE, 16
+    END
+
+    IDD_DLG_REG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 296
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 176
+    END
+
+    IDD_DLG_ADMSHELL, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 470
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 296
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#ifndef APSTUDIO_INVOKED\r\n"
+    "#include ""targetver.h""\r\n"
+    "#endif\r\n"
+    "#define APSTUDIO_HIDDEN_SYMBOLS\r\n"
+    "#include ""windows.h""\r\n"
+    "#undef APSTUDIO_HIDDEN_SYMBOLS\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE
+BEGIN
+    IDS_APP_TITLE           "SQL_ExamSystem"
+    IDC_SQL_EXAMSYSTEM      "SQL_EXAMSYSTEM"
+END
+
+#endif    // 中文(简体，中国) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
