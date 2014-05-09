@@ -34,10 +34,15 @@
 using namespace std;
 
 // My Headers
-#include "ODBCManagement.h"
 #include "sha256.h"
+#include "ODBCManagement.h"
+#include "TableAdmin.h"
+#include "TableStudent.h"
 
-// My Globle Vars
+// My Global Functions
+
+// My Global Vars
 static ODBCManagement ODBCM;
+static TableAdmin tAdmin;
 
 #endif

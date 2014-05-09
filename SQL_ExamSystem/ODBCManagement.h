@@ -20,11 +20,11 @@ public:
 	bool ODBCExecDirect( string Query );
 	bool ODBCExecDirect( wstring Query );
 	void ODBCDisconnect( );
+	long getOneValue( string str );
+	long getOneValue( wstring wstr );
 
 	SQLHSTMT hstmt; // Operation handle
 	SQLHDBC getHdbc( ) const;
-	long getOneValue( string str );  // Exec and get table(1,1) value
-	long getOneValue( wstring wstr );
 
 private:
 	bool status;    // true - connected

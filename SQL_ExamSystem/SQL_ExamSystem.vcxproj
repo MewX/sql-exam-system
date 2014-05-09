@@ -94,6 +94,8 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="TableAdmin.cpp" />
+    <ClCompile Include="TableStudent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ODBCManagement.h" />
@@ -101,6 +103,8 @@
     <ClInclude Include="sha256.h" />
     <ClInclude Include="SQL_ExamSystem.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="TableAdmin.h" />
+    <ClInclude Include="TableStudent.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>

@@ -74,7 +74,6 @@ SQLHDBC ODBCManagement::getHdbc( ) const
 long ODBCManagement::getOneValue( string str )
 {
 	wstring wstr( str.begin( ), str.end( ) );
-	// MessageBox( NULL, wstr.c_str( ), NULL, NULL );
 	return getOneValue( wstr );
 }
 
@@ -90,8 +89,9 @@ long ODBCManagement::getOneValue( wstring wstr )
 			MessageBox( NULL, _T("SQLGetData Error 0x0000!"), NULL ,NULL );
 	}
 	else {
-		MessageBox( NULL, _T("SQLFetch Error 0x0000!"), NULL ,NULL );
+		MessageBoxW( NULL, ( L"SQLFetch Error 0x0000!\r\nError in querying?\r\n-> " + wstr ).c_str( ), NULL ,NULL );
 	}
 	SQLFreeHandle( SQL_HANDLE_STMT, h );
 	return test;
 }
+

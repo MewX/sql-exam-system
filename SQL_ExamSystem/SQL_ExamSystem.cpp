@@ -19,6 +19,9 @@ TCHAR szWindowClass[MAX_LOADSTRING];			// 主窗口类名
 // 此代码模块中包含的函数的前向声明:
 ATOM				MyRegisterClass(HINSTANCE hInstance);*/
 
+// My functions
+void ResetListViewData( HWND h );
+
 // UI Procs
 INT_PTR CALLBACK	DlgAboutProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK	DlgLoginProc(HWND, UINT, WPARAM, LPARAM);
@@ -47,6 +50,7 @@ BEGIN:
 	DialogBox( hInstance, (LPCTSTR)IDD_DLG_LOGIN, NULL, (DLGPROC)DlgLoginProc );
 
 	if( ProcedureId == 2 ) { // Admin Shell Dialog
+		
 		DialogBox( hInstance, (LPCTSTR)IDD_DLG_ADMSHELL, NULL, (DLGPROC)DlgAdminShellProc );
 		goto BEGIN;
 	}
@@ -95,14 +99,35 @@ BEGIN:
 	return RegisterClassEx(&wcex);
 }*/
 
+/****************************************
+ *  Tool Functions
+ ****************************************/
+void ResetListViewData( HWND h ) // handle of ListView
+{
+	int nCols = 0;
+	HWND hWndHeader;
+	LVITEM lvItem;
+	
+	SendMessage( h, LVM_DELETEALLITEMS, 0, 0 );
+	
+	hWndHeader = (HWND)SendMessage( h, LVM_GETHEADER, 0,0 ); // get column count
+	nCols = SendMessage( hWndHeader, HDM_GETITEMCOUNT, 0, 0 );
+	
+	//删除ListView所有列
+	while( nCols ) {
+		SendMessage( h, LVM_DELETECOLUMN, 0, (LPARAM)&lvItem );
+		nCols--;
+	}
+	return;
+}
 
-/**
+/****************************************
  *  All the dialog procs' main function
- **/
+ ****************************************/
 INT_PTR CALLBACK DlgLoginProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	static int ConnectionInfo = 0; // 0 - Not Connected; -1 - Connection failed; 1 - Connection succeeded.
-	static char UserName[ 256 ] = { '\0' }, Password[ 256 ] = { '\0' }, temp[ 256 ] = { '\0' };
+	static char UserName[ 256 ] = { '\0' }, Password[ 256 ] = { '\0' }, temp[ 256 ] = { '\0' }, temp2[ 256 ] = { '\0' };
 	static HDC hdc;
 	static const RECT tempRECT = { 0, 0, 600, 600 };
 
@@ -134,15 +159,15 @@ RETRY_CONNECT:
 
 	case WM_CTLCOLORSTATIC: // Set Text Color, and its background
 		// Need refresh !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		//SendMessage( hDlg, WM_PAINT, (WPARAM)GetDC( hDlg ), NULL );
-		//Invalidate( GetDlgItem( hDlg, IDC_DLG_LOGIN_CONNECTSTATUES ) );
-		//SetBkColor( GetDC( GetDlgItem( hDlg, IDC_DLG_LOGIN_CONNECTSTATUES ) ), GetPixel( GetDC(hDlg), 16, 16 ) );
-		//InvalidateRect( GetDlgItem( hDlg, IDC_DLG_LOGIN_CONNECTSTATUES ), &tempRECT, FALSE );
-		//UpdateWindow( GetDlgItem( hDlg, IDC_DLG_LOGIN_CONNECTSTATUES ) );
-		//RedrawWindow( hDlg, &tempRECT, NULL, RDW_ERASE );
-
-		//SendMessage( hDlg, WM_CTLCOLORDLG, (WPARAM)GetDC( hDlg ), NULL );
-		//RedrawWindow( hDlg, &tempRECT, NULL, RDW_ERASE | RDW_NOCHILDREN );
+		// SendMessage( hDlg, WM_PAINT, (WPARAM)GetDC( hDlg ), NULL );
+		// Invalidate( GetDlgItem( hDlg, IDC_DLG_LOGIN_CONNECTSTATUES ) );
+		// SetBkColor( GetDC( GetDlgItem( hDlg, IDC_DLG_LOGIN_CONNECTSTATUES ) ), GetPixel( GetDC(hDlg), 16, 16 ) );
+		// InvalidateRect( GetDlgItem( hDlg, IDC_DLG_LOGIN_CONNECTSTATUES ), &tempRECT, FALSE );
+		// UpdateWindow( GetDlgItem( hDlg, IDC_DLG_LOGIN_CONNECTSTATUES ) );
+		// RedrawWindow( hDlg, &tempRECT, NULL, RDW_ERASE );
+		   
+		// SendMessage( hDlg, WM_CTLCOLORDLG, (WPARAM)GetDC( hDlg ), NULL );
+		// RedrawWindow( hDlg, &tempRECT, NULL, RDW_ERASE | RDW_NOCHILDREN );
 
 		hdc = (HDC)wParam;
 		if( (HWND)lParam == GetDlgItem( hDlg, IDC_DLG_LOGIN_CONNECTSTATUES ) ) { // Set Specific Color
@@ -151,7 +176,7 @@ RETRY_CONNECT:
 		}
 		SetBkMode( (HDC)wParam, TRANSPARENT ); // Set TRANSPARENT
 
-		//return (LRESULT)GetStockObject( NULL_BRUSH );
+		// return (LRESULT)GetStockObject( NULL_BRUSH );
 		return (LRESULT)CreateSolidBrush(GetPixel( GetDC(hDlg), 16, 16 ) );
 
 
@@ -165,16 +190,59 @@ RETRY_CONNECT:
 			DialogBox( hInst, (LPCTSTR)IDD_DLG_ABOUT, hDlg, (DLGPROC)DlgAboutProc );
 			return (INT_PTR)TRUE;
 
-		case IDC_DLG_LOGIN_BUTTON_LOGIN: // This the kernel part !!!
-			GetWindowTextA( GetDlgItem( hDlg, IDC_DLG_LOGIN_EDIT_PASSWORD ), Password, 255 ); // test
-			//SetWindowTextA( GetDlgItem( hDlg, IDC_DLG_LOGIN_EDIT_USERNAME ), Password );
+		case IDC_DLG_LOGIN_BUTTON_LOGIN: // This is the kernel part !!!
+			memset( UserName, '\0', 256 );
+			memset( Password, '\0', 256 );
+			memset( temp, '\0', 256 );
+			memset( temp2, '\0', 256 );
+			GetWindowTextA( GetDlgItem( hDlg, IDC_DLG_LOGIN_EDIT_USERNAME ), UserName, 255 );
+			GetWindowTextA( GetDlgItem( hDlg, IDC_DLG_LOGIN_EDIT_PASSWORD ), Password, 255 );
 
+			// test length
+			if( strlen( UserName ) > 20 || strlen( UserName ) < 2 ) {
+				MessageBox( hDlg, _T( "用户名长度非法！" ), _T( "Error" ), MB_OK );
+				return (INT_PTR)TRUE;
+			}
+			else if( strlen( Password ) > 20 ) {
+				MessageBox( hDlg, _T( "密码长度非法！" ), _T( "Error" ), MB_OK );
+				return (INT_PTR)TRUE;
+			}
+
+			// test legality, avoid SQL injecting
+			for( unsigned int i = 0; i < strlen( UserName ); i ++ ) {
+				if( 'A' <= UserName[ i ] && UserName[ i ] <= 'Z' ) UserName[ i ] |= 0x20; // to low case
+				else if( !( 'a' <= UserName[ i ] && UserName[ i ] <= 'z' || i != 0 && '0' <= UserName[ i ] && UserName[ i ] <= '9' ) ) {
+					MessageBox( hDlg, _T( "SQL injecting detected!" ), _T( "Error" ), MB_OK );
+					return (INT_PTR)TRUE;
+				}
+			}
+			
+			// test UserName, Password matchment
 			sha256_32byte( (unsigned char *)Password, (unsigned char *)temp );
-			byte_array_to_str( (unsigned char *)temp, UserName, 32 );
-			SetWindowTextA( GetDlgItem( hDlg, IDC_DLG_LOGIN_EDIT_USERNAME ), UserName );
-
-			ProcedureId = 2; // test
+			byte_array_to_str( (unsigned char *)temp, temp2, 32 );
+			if( ODBCM.getOneValue( (string)"select count( * ) from Admin where AdminName = \'"
+									+ UserName + "\' and AdminPassword = \'" + temp2 + "\';" ) == 1 ) {
+				// Init tAdmin
+				if( tAdmin.Init( ODBCM.getHdbc( ), UserName, temp2 ) ) ProcedureId = 2;
+				else {
+					MessageBox( hDlg, _T( "Cannot seek Admin info! (Unknow Error)" ), _T( "Error" ), MB_OK );
+					return (INT_PTR)TRUE;
+				}
+			}
+			else if( ODBCM.getOneValue( (string)"select count( * ) from Student where StuName = \'"
+										+ UserName + "\' and StuPassword = \'" + temp2 + "\';" ) == 1 ) {
+				// Init Student
+				// if(  )
+				ProcedureId = 3;
+			}
+			else {
+				MessageBox( hDlg, _T( "用户名或密码不正确！" ), _T( "Error" ), MB_OK );
+				// MessageBoxA( hDlg, temp2, NULL, NULL ); // Show Hash Value
+				SetWindowTextA( GetDlgItem( hDlg, IDC_DLG_LOGIN_EDIT_PASSWORD ), "" );
+				return (INT_PTR)TRUE;
+			}
 			EndDialog(hDlg, 1);
+
 			return (INT_PTR)TRUE;
 
 		case IDC_DLG_LOGIN_BUTTON_REGISTER:
@@ -202,8 +270,9 @@ INT_PTR CALLBACK DlgAboutProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lPa
 			RECT rc = { 0 };
 			ScreenWidth = GetSystemMetrics( SM_CXSCREEN );
 			ScreenHeight = GetSystemMetrics( SM_CYSCREEN );
-			::GetWindowRect(hDlg, &rc);
-			::SetWindowPos( hDlg, HWND_NOTOPMOST, ( ScreenWidth - ( rc.right - rc.left ) ) / 2, ( ScreenHeight - ( rc.bottom - rc.top ) ) / 2,
+			GetWindowRect(hDlg, &rc);
+			SetWindowPos( hDlg, HWND_NOTOPMOST, ( ScreenWidth - ( rc.right - rc.left ) ) / 2,
+				( ScreenHeight - ( rc.bottom - rc.top ) ) / 2,
 				( rc.right - rc.left ), ( rc.bottom - rc.top ), SWP_SHOWWINDOW);
 		}
 		SetWindowText( GetDlgItem( hDlg, IDC_DLG_ABOUT_EDIT_OS ), _T(" OpenSource - https://github.com/MewCatcher/SQL_ExamSystem/") );
@@ -233,8 +302,9 @@ INT_PTR CALLBACK DlgRegProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lPara
 			RECT rc = { 0 };
 			ScreenWidth = GetSystemMetrics( SM_CXSCREEN );
 			ScreenHeight = GetSystemMetrics( SM_CYSCREEN );
-			::GetWindowRect(hDlg, &rc);
-			::SetWindowPos( hDlg, HWND_NOTOPMOST, ( ScreenWidth - ( rc.right - rc.left ) ) / 2, ( ScreenHeight - ( rc.bottom - rc.top ) ) / 2,
+			GetWindowRect(hDlg, &rc);
+			SetWindowPos( hDlg, HWND_NOTOPMOST, ( ScreenWidth - ( rc.right - rc.left ) ) / 2,
+				( ScreenHeight - ( rc.bottom - rc.top ) ) / 2,
 				( rc.right - rc.left ), ( rc.bottom - rc.top ), SWP_SHOWWINDOW);
 		}
 		return (INT_PTR)TRUE;
@@ -247,6 +317,10 @@ INT_PTR CALLBACK DlgRegProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lPara
 		else if( LOWORD(wParam) == IDC_DLG_REG_BTN_REG )
 		{
 			// Here process the reg logic
+			memset( UserName, '\0', 256 );
+			memset( Password1, '\0', 256 );
+			memset( Password2, '\0', 256 );
+			memset( temp, '\0', 256 );
 			GetWindowTextA( GetDlgItem( hDlg, IDC_DLG_REG_EDIT_USERNAME ), UserName, 255 );
 			GetWindowTextA( GetDlgItem( hDlg, IDC_DLG_REG_EDIT_PASSWORD1 ), Password1, 255 );
 			GetWindowTextA( GetDlgItem( hDlg, IDC_DLG_REG_EDIT_PASSWORD2 ), Password2, 255 );
@@ -258,7 +332,7 @@ INT_PTR CALLBACK DlgRegProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lPara
 			}
 			
 			// test case able
-			for( int i = 0; i < strlen( UserName ); i ++ ) {
+			for( unsigned int i = 0; i < strlen( UserName ); i ++ ) {
 				if( 'A' <= UserName[ i ] && UserName[ i ] <= 'Z' ) UserName[ i ] |= 0x20; // to low case
 				else if( !( 'a' <= UserName[ i ] && UserName[ i ] <= 'z' || i != 0 && '0' <= UserName[ i ] && UserName[ i ] <= '9' ) ) {
 					MessageBox( hDlg, _T( "UserName内容错误！" ), _T( "Error" ), MB_OK );
@@ -271,7 +345,7 @@ INT_PTR CALLBACK DlgRegProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lPara
 				SetWindowText( GetDlgItem( hDlg, IDC_DLG_REG_EDIT_PASSWORD2 ), _T( "" ) );
 				return (INT_PTR)TRUE;
 			}
-			for( int i = 0; i < strlen( Password1 ); i ++ ) {
+			for( unsigned int i = 0; i < strlen( Password1 ); i ++ ) {
 				if( 'A' <= Password1[ i ] && Password1[ i ] <= 'Z' ) Password1[ i ] |= 0x20; // to low case
 				else if( !( 'a' <= Password1[ i ] && Password1[ i ] <= 'z' || '0' <= Password1[ i ] && Password1[ i ] <= '9' ) ) {
 					MessageBox( hDlg, _T( "Password含有非法字符！" ), _T( "Error" ), MB_OK );
@@ -348,19 +422,50 @@ INT_PTR CALLBACK DlgRegProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lPara
 
 INT_PTR CALLBACK DlgAdminShellProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
 {
+	/**
+	 *  0 - None
+	 *  1 - IDC_DLG_ADMSHELL_BTN_EDITADM
+	 *  2 - IDC_DLG_ADMSHELL_BTN_EDITSTU
+	 *  3 - IDC_DLG_ADMSHELL_BTN_EDITQUEST
+	 *  4 - IDC_DLG_ADMSHELL_BTN_EDITPAPER
+	 *  5 - IDC_DLG_ADMSHELL_BTN_EDITEXAM
+	 *  6 - IDC_DLG_ADMSHELL_BTN_EDITGRADE
+	 **/
+	static int CurrentTable; // 0 - None; 1~? Other tables
+
 	UNREFERENCED_PARAMETER(lParam);
 	switch (message)
 	{
 	case WM_INITDIALOG: {
-		// reset window position
+			// reset window position
 			int ScreenWidth, ScreenHeight;
 			RECT rc = { 0 };
 			ScreenWidth = GetSystemMetrics( SM_CXSCREEN );
 			ScreenHeight = GetSystemMetrics( SM_CYSCREEN );
-			::GetWindowRect(hDlg, &rc);
-			::SetWindowPos( hDlg, HWND_NOTOPMOST, ( ScreenWidth - ( rc.right - rc.left ) ) / 2, ( ScreenHeight - ( rc.bottom - rc.top ) ) / 2,
+			GetWindowRect(hDlg, &rc);
+			SetWindowPos( hDlg, HWND_NOTOPMOST, ( ScreenWidth - ( rc.right - rc.left ) ) / 2,
+				( ScreenHeight - ( rc.bottom - rc.top ) ) / 2,
 				( rc.right - rc.left ), ( rc.bottom - rc.top ), SWP_SHOWWINDOW);
+
+			// Set button usable
+			EnableWindow( GetDlgItem( hDlg, IDC_DLG_ADMSHELL_BTN_EDITADM ), tAdmin.get_canManageAdmin( ) );
+			EnableWindow( GetDlgItem( hDlg, IDC_DLG_ADMSHELL_BTN_EDITSTU ), tAdmin.get_canManageStudent( ) );
+			EnableWindow( GetDlgItem( hDlg, IDC_DLG_ADMSHELL_BTN_EDITQUEST ), tAdmin.get_canSetProblem( ) );
+			EnableWindow( GetDlgItem( hDlg, IDC_DLG_ADMSHELL_BTN_EDITPAPER ), tAdmin.get_canSetPaper( ) );
+			EnableWindow( GetDlgItem( hDlg, IDC_DLG_ADMSHELL_BTN_EDITEXAM ), tAdmin.get_canSetExam( ) );
+			EnableWindow( GetDlgItem( hDlg, IDC_DLG_ADMSHELL_BTN_EDITGRADE ),
+				tAdmin.get_canDeleteGrade( ) || tAdmin.get_canEditGrade( ) );
+			
+			EnableWindow( GetDlgItem( hDlg, IDC_DLG_ADMSHELL_BTN_DEL ), false );
+			EnableWindow( GetDlgItem( hDlg, IDC_DLG_ADMSHELL_BTN_ADD ), false );
+			EnableWindow( GetDlgItem( hDlg, IDC_DLG_ADMSHELL_BTN_EDIT ), false );
+
+			SetWindowTextA( GetDlgItem( hDlg, IDC_DLG_ADMSHELL_STA_UNM ),
+				( "Logged as: " + tAdmin.get_UserName( ) ).c_str( ) );
+			SetWindowTextA( GetDlgItem( hDlg, IDC_DLG_ADMSHELL_STA_TAB ), "Current table: ( None )" );
+			CurrentTable = 0;
 		}
+
 		return (INT_PTR)TRUE;
 
 	case WM_COMMAND:
@@ -368,6 +473,157 @@ INT_PTR CALLBACK DlgAdminShellProc(HWND hDlg, UINT message, WPARAM wParam, LPARA
 		case IDCANCEL: case IDC_DLG_ADMSHELL_BTN_EXIT:
 			EndDialog(hDlg, LOWORD(wParam));
 			return (INT_PTR)TRUE;
+
+		case IDC_DLG_ADMSHELL_BTN_EDITINFO:
+			// Edit self infomation
+			MessageBox( hDlg, _T( "On developing..." ), _T( "Sorry" ), MB_OK );
+			return (INT_PTR)TRUE;
+
+		case IDC_DLG_ADMSHELL_BTN_EDITADM: {
+				// Show TableAdmin : AdminName, canManageAdmin, canManageStudent, canSetProblem,
+				//                   canSetPaper, canSetExam, canDeleteGrade, canEditGrade
+
+				// Empty table
+				ResetListViewData( GetDlgItem( hDlg,IDC_DLG_ADMSHELL_LIST ) );
+
+				// Set columns
+				LV_COLUMN lvc;
+
+				lvc.mask = LVCF_TEXT | LVCF_WIDTH;
+				lvc.pszText = L"用户名";
+				lvc.cx = 100;
+				SendMessageW( GetDlgItem( hDlg, IDC_DLG_ADMSHELL_LIST ), LVM_INSERTCOLUMNW, 0, (long)&lvc );
+
+				lvc.pszText = L"能否管理管理员";
+				lvc.cx = 100;
+				SendMessageW( GetDlgItem( hDlg, IDC_DLG_ADMSHELL_LIST ), LVM_INSERTCOLUMNW, 1, (long)&lvc );
+
+				lvc.pszText = L"能否管理考生";
+				lvc.cx = 90;
+				SendMessageW( GetDlgItem( hDlg, IDC_DLG_ADMSHELL_LIST ), LVM_INSERTCOLUMNW, 2, (long)&lvc );
+
+				lvc.pszText = L"能否设置考题";
+				lvc.cx = 90;
+				SendMessageW( GetDlgItem( hDlg, IDC_DLG_ADMSHELL_LIST ), LVM_INSERTCOLUMNW, 3, (long)&lvc );
+				
+				lvc.pszText = L"能否设置考卷";
+				lvc.cx = 90;
+				SendMessageW( GetDlgItem( hDlg, IDC_DLG_ADMSHELL_LIST ), LVM_INSERTCOLUMNW, 4, (long)&lvc );
+				
+				lvc.pszText = L"能否设置考试";
+				lvc.cx = 90;
+				SendMessageW( GetDlgItem( hDlg, IDC_DLG_ADMSHELL_LIST ), LVM_INSERTCOLUMNW, 5, (long)&lvc );
+
+				lvc.pszText = L"能否删除成绩";
+				lvc.cx = 90;
+				SendMessageW( GetDlgItem( hDlg, IDC_DLG_ADMSHELL_LIST ), LVM_INSERTCOLUMNW, 6, (long)&lvc );
+				
+				lvc.pszText = L"能否修改成绩";
+				lvc.cx = 90;
+				SendMessageW( GetDlgItem( hDlg, IDC_DLG_ADMSHELL_LIST ), LVM_INSERTCOLUMNW, 7, (long)&lvc );
+
+				// Fetch data
+				if( !tAdmin.FetchAdminList( ODBCM, ODBCM.getHdbc( ) ) ) {
+					MessageBox( hDlg, _T( "Error when Fetching AdminList!" ), _T( "Sorry" ), MB_OK );
+					return (INT_PTR)TRUE;
+				}
+
+				// Add data to ListView
+				EnableWindow( GetDlgItem( hDlg, IDC_DLG_ADMSHELL_BTN_DEL ), true );
+				EnableWindow( GetDlgItem( hDlg, IDC_DLG_ADMSHELL_BTN_ADD ), true );
+				EnableWindow( GetDlgItem( hDlg, IDC_DLG_ADMSHELL_BTN_EDIT ), true );
+
+				SetWindowTextA( GetDlgItem( hDlg, IDC_DLG_ADMSHELL_STA_UNM ),
+					( "Logged as: " + tAdmin.get_UserName( ) ).c_str( ) );
+				SetWindowTextA( GetDlgItem( hDlg, IDC_DLG_ADMSHELL_STA_TAB ), "Current table: Admin" );
+
+				// Add items
+				LVITEMA lvi;
+				lvi.mask = LVIF_TEXT;   // Text Style   
+                lvi.cchTextMax = 256; // Max size of test   
+                
+				for( int i = 0; i < tAdmin.get_SA_count( ); i ++ ) {
+					StructAdmin s = tAdmin.get_SA( i );
+
+					lvi.iItem = i;          // choose item
+					lvi.iSubItem = 0;       // Put in first coluom
+					lvi.pszText = s.Name;   // Text to display (can be from a char variable) (Items)
+					SendMessageA( GetDlgItem( hDlg, IDC_DLG_ADMSHELL_LIST ), LVM_INSERTITEMA, i, (LPARAM)&lvi);
+
+					lvi.iSubItem ++;       // Put in next coluom
+					lvi.pszText = ( s.canManageAdmin ? "o" : "x" );
+					SendMessageA( GetDlgItem( hDlg, IDC_DLG_ADMSHELL_LIST ), LVM_SETITEMA, i, (LPARAM)&lvi);
+					
+					lvi.iSubItem ++;       // Put in next coluom
+					lvi.pszText = ( s.canManageStudent ? "o" : "x" );
+					SendMessageA( GetDlgItem( hDlg, IDC_DLG_ADMSHELL_LIST ), LVM_SETITEMA, i, (LPARAM)&lvi);
+					
+					lvi.iSubItem ++;       // Put in next coluom
+					lvi.pszText = ( s.canSetProblem ? "o" : "x" );
+					SendMessageA( GetDlgItem( hDlg, IDC_DLG_ADMSHELL_LIST ), LVM_SETITEMA, i, (LPARAM)&lvi);
+					
+					lvi.iSubItem ++;       // Put in next coluom
+					lvi.pszText = ( s.canSetPaper ? "o" : "x" );
+					SendMessageA( GetDlgItem( hDlg, IDC_DLG_ADMSHELL_LIST ), LVM_SETITEMA, i, (LPARAM)&lvi);
+					
+					lvi.iSubItem ++;       // Put in next coluom
+					lvi.pszText = ( s.canSetExam ? "o" : "x" );
+					SendMessageA( GetDlgItem( hDlg, IDC_DLG_ADMSHELL_LIST ), LVM_SETITEMA, i, (LPARAM)&lvi);
+					
+					lvi.iSubItem ++;       // Put in next coluom
+					lvi.pszText = ( s.canDeleteGrade ? "o" : "x" );
+					SendMessageA( GetDlgItem( hDlg, IDC_DLG_ADMSHELL_LIST ), LVM_SETITEMA, i, (LPARAM)&lvi);
+					
+					lvi.iSubItem ++;       // Put in next coluom // 7
+					lvi.pszText = ( s.canEditGrade ? "o" : "x" );
+					SendMessageA( GetDlgItem( hDlg, IDC_DLG_ADMSHELL_LIST ), LVM_SETITEMA, i, (LPARAM)&lvi);
+				}
+
+				CurrentTable = 1;
+			}
+			return (INT_PTR)TRUE;
+
+		case IDC_DLG_ADMSHELL_BTN_EDITSTU:
+			// Edit self infomation
+			MessageBox( hDlg, _T( "On developing..." ), _T( "Sorry" ), MB_OK );
+			return (INT_PTR)TRUE;
+
+		case IDC_DLG_ADMSHELL_BTN_EDITQUEST:
+			// Edit self infomation
+			MessageBox( hDlg, _T( "On developing..." ), _T( "Sorry" ), MB_OK );
+			return (INT_PTR)TRUE;
+
+		case IDC_DLG_ADMSHELL_BTN_EDITPAPER:
+			// Edit self infomation
+			MessageBox( hDlg, _T( "On developing..." ), _T( "Sorry" ), MB_OK );
+			return (INT_PTR)TRUE;
+
+		case IDC_DLG_ADMSHELL_BTN_EDITEXAM:
+			// Edit self infomation
+			MessageBox( hDlg, _T( "On developing..." ), _T( "Sorry" ), MB_OK );
+			return (INT_PTR)TRUE;
+
+		case IDC_DLG_ADMSHELL_BTN_EDITGRADE:
+			// Edit self infomation
+			MessageBox( hDlg, _T( "On developing..." ), _T( "Sorry" ), MB_OK );
+			return (INT_PTR)TRUE;
+
+		case IDC_DLG_ADMSHELL_BTN_EDIT:
+			// Edit self infomation
+			MessageBox( hDlg, _T( "On developing..." ), _T( "Sorry" ), MB_OK );
+			return (INT_PTR)TRUE;
+
+		case IDC_DLG_ADMSHELL_BTN_DEL:
+			// Edit self infomation
+			MessageBox( hDlg, _T( "On developing..." ), _T( "Sorry" ), MB_OK );
+			return (INT_PTR)TRUE;
+
+		case IDC_DLG_ADMSHELL_BTN_ADD:
+			// Edit self infomation
+			MessageBox( hDlg, _T( "On developing..." ), _T( "Sorry" ), MB_OK );
+			return (INT_PTR)TRUE;
+
+		//case 
 		}
 		break;
 	}
