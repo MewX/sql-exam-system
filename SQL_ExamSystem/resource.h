@@ -15,6 +15,7 @@
 #define IDD_DLG_LOGIN                   129
 #define IDD_DLG_REG                     130
 #define IDD_DLG_ADMSHELL                131
+#define IDD_DLG_ADMINPW                 132
 #define IDC_DLG_LOGIN_EDIT_USERNAME     1000
 #define IDC_DLG_LOGIN_EDIT_PASSWORD     1001
 #define IDC_DLG_LOGIN_BUTTON_LOGIN      1002
@@ -41,8 +42,10 @@
 #define IDC_DLG_ADMSHELL_BTN_ADD        1024
 #define IDC_DLG_ADMSHELL_BTN_DEL        1025
 #define IDC_DLG_ADMSHELL_BTN_EDIT       1027
-#define IDC_DLG_ADMSHELL_               1028
 #define IDC_DLG_ADMSHELL_STA_TAB        1028
+#define IDC_EDIT1                       1029
+#define IDC_EDIT2                       1030
+#define IDC_EDIT3                       1031
 #define IDC_STATIC                      -1
 
 // Next default values for new objects
@@ -50,9 +53,9 @@
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NO_MFC                     1
-#define _APS_NEXT_RESOURCE_VALUE        132
+#define _APS_NEXT_RESOURCE_VALUE        133
 #define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1029
+#define _APS_NEXT_CONTROL_VALUE         1032
 #define _APS_NEXT_SYMED_VALUE           110
 #endif
 #endif

@@ -135,6 +135,15 @@ create table Grade (
   constraint GradeExamFK foreign key ( ExamId ) references Exam( ExamId )
 );
 
+-- ----------------------------
+-- Create Views
+-- ----------------------------
+create view Admin_General
+as select AdminName, AdminType, canManageAdmin, canManageStudent, canSetProblem, canSetPaper,
+canSetExam, canDeleteGrade, canEditGrade from Admin;
+
+create view Student_General as select StuName, ExamTime from Student;
+
 
 -- ----------------------------
 -- Init Tables with values

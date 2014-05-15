@@ -46,13 +46,16 @@ void ODBCManagement::ODBCDisconnect( )
 
 bool ODBCManagement::ODBCExecDirect( string Query )
 {
-	SQLHSTMT h;
+	wstring wstr( Query.begin( ), Query.end( ) );
+	return ODBCExecDirect(wstr );
+
+	/* SQLHSTMT h;
 	SQLAllocHandle( SQL_HANDLE_STMT, hdbc, &h );
 	ret = SQLExecDirectA( h, (SQLCHAR *)Query.c_str( ), SQL_NTS );
 	SQLFreeHandle( SQL_HANDLE_STMT, h );
 	MessageBoxA( NULL, Query.c_str( ), NULL, NULL );
 
-	return ret == SQL_SUCCESS || ret == SQL_SUCCESS_WITH_INFO;
+	return ret == SQL_SUCCESS || ret == SQL_SUCCESS_WITH_INFO; */
 }
 
 bool ODBCManagement::ODBCExecDirect( wstring Query )
@@ -61,7 +64,7 @@ bool ODBCManagement::ODBCExecDirect( wstring Query )
 	SQLAllocHandle( SQL_HANDLE_STMT, hdbc, &h );
 	ret = SQLExecDirectW( h, (SQLWCHAR *)Query.c_str( ), SQL_NTS );
 	SQLFreeHandle( SQL_HANDLE_STMT, h );
-	MessageBoxW( NULL, Query.c_str( ), NULL, NULL );
+	//MessageBoxW( NULL, Query.c_str( ), NULL, NULL );
 
 	return ret == SQL_SUCCESS || ret == SQL_SUCCESS_WITH_INFO;
 }

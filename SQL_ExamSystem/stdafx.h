@@ -44,5 +44,6 @@ using namespace std;
 // My Global Vars
 static ODBCManagement ODBCM;
 static TableAdmin tAdmin;
+static TableStudent tStudent;
 
 #endif

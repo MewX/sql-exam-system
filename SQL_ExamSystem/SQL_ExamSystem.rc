@@ -60,7 +60,7 @@ BEGIN
     LTEXT           "SQL_ExamSystem, v1.0",IDC_STATIC,42,14,114,8,SS_NOPREFIX
     LTEXT           "Copyright: MewCatcher, 2014",IDC_STATIC,42,26,114,8
     DEFPUSHBUTTON   "OK",IDOK,114,125,50,14,WS_GROUP
-    LTEXT           "[ 相关技术参数 ]\r\n　　字符集　：Unicode (UTF-16 LE)\r\n　　开发语言：C++ with pure Win32 API\r\n\r\n[ 数据库系统参数 ]\r\n　　数据库　：SQL Server 2005 Express\r\n　　　　　　　MySQL ODBC 5.2 Unicode\r\n　　数据源　： MewCatcherSQLServer\r\n　　登陆名　：(NULL, set on ODBC)\r\n",IDC_STATIC,11,47,148,78
+    LTEXT           "[ 相关技术参数 ]\r\n　　字符集　：Unicode (UTF-16 LE)\r\n　　开发语言：C++ / Win32 API + ODBC API\r\n\r\n[ 数据库系统参数 ]\r\n　　数据库　：SQL Server 2005 Express\r\n　　　　　　　MySQL ODBC 5.2 Unicode\r\n　　数据源　： MewCatcherSQLServer\r\n　　登陆名　：(NULL, set on ODBC)\r\n",IDC_STATIC,11,47,148,78
     EDITTEXT        IDC_DLG_ABOUT_EDIT_OS,0,140,168,14,ES_CENTER | ES_AUTOHSCROLL | ES_READONLY | NOT WS_TABSTOP
 END
 
@@ -120,6 +120,21 @@ BEGIN
     LTEXT           "当前显示表格：管理员表格",IDC_DLG_ADMSHELL_STA_TAB,169,292,185,8
 END
 
+IDD_DLG_ADMINPW DIALOGEX 0, 0, 225, 129
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "SQL考试系统 - 管理员信息修改"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "确定",IDOK,108,102,50,14
+    PUSHBUTTON      "取消",IDCANCEL,162,102,50,14
+    LTEXT           "Old Password:",IDC_STATIC,13,26,47,8
+    LTEXT           "New Password:",IDC_STATIC,10,50,50,8
+    LTEXT           "Retype:",IDC_STATIC,33,74,27,8
+    EDITTEXT        IDC_EDIT1,65,20,144,14,ES_PASSWORD | ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT2,65,44,144,14,ES_PASSWORD | ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT3,65,68,144,14,ES_PASSWORD | ES_AUTOHSCROLL
+END
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -157,6 +172,14 @@ BEGIN
         RIGHTMARGIN, 470
         TOPMARGIN, 7
         BOTTOMMARGIN, 296
+    END
+
+    IDD_DLG_ADMINPW, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 218
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 122
     END
 END
 #endif    // APSTUDIO_INVOKED
