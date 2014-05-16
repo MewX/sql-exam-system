@@ -3,6 +3,8 @@ use MewCatcher_ExamSystem;
 ------------------------------
 -- Clear All
 ------------------------------
+drop view Student_General;
+drop view Admin_General;
 
 drop table Grade;
 drop table Answer;

@@ -20,6 +20,11 @@ public:
 	~TableAdmin( );
 
 	bool Init( SQLHDBC hdbc_loc, string Name, string Password ); // This design is for safety
+	void Delete( int line, SQLHDBC hdbc_loc );
+	void Add( StructAdmin StrAdmin, ODBCManagement& ODBC, SQLHDBC hdbc_loc );
+	void Edit( int line, StructAdmin StrAdmin, SQLHDBC hdbc_loc );
+
+
 	string get_UserName( ) const;
 	int get_AdminId( ) const;
 	bool get_AdminType( ) const; // true - SU; false - Admin
@@ -30,8 +35,10 @@ public:
 	bool get_canSetExam( ) const;
 	bool get_canDeleteGrade( ) const;
 	bool get_canEditGrade( ) const;
+	bool JudgePassword( string OldHash ) const; // true - match
 
 	bool FetchAdminList( ODBCManagement& ODBC, SQLHDBC hdbc_loc ); // Using ODBCM
+	bool SetNewPassword( SQLHDBC hdbc_loc, string OldHash, string NewHash );
 	int get_SA_count( ) const;
 	StructAdmin get_SA( int line ) const;
 
@@ -39,6 +46,7 @@ private:
 	bool hasInit;
 	int AdminId;
 	char AdminName[ 256 ];
+	char PasswordHash[ 256 ];
 	bool AdminType;
 	bool canManageAdmin, canManageStudent, canSetProblem, canSetPaper, canSetExam, canDeleteGrade, canEditGrade;
 

@@ -58,7 +58,6 @@
     <PreDeploy Include="SQLInit.sql" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="SQLtemp.sql" />
     <Build Include="SQLUnInit.sql" />
   </ItemGroup>
 </Project>
